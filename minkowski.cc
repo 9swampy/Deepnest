@@ -97,7 +97,7 @@ using v8::Local;
 using v8::Array;
 using v8::Isolate;
 using v8::String;
-using v8::Handle;
+using v8::Local;
 using v8::Object;
 using v8::Value;
 
@@ -106,12 +106,13 @@ using namespace boost::polygon;
 NAN_METHOD(calculateNFP) {
   //std::stringstream buffer;
   //std::streambuf * old = std::cout.rdbuf(buffer.rdbuf());
-  
+  v8::Local<v8::Context> context = info.GetIsolate()->GetCurrentContext();
+
   Isolate* isolate = info.GetIsolate();
 
-  Handle<Object> group = Handle<Object>::Cast(info[0]);
-  Handle<Array> A = Handle<Array>::Cast(group->Get(String::NewFromUtf8(isolate,"A")));
-  Handle<Array> B = Handle<Array>::Cast(group->Get(String::NewFromUtf8(isolate,"B")));
+  Local<Object> group = Local<Object>::Cast(info[0]);
+  Local<Array> A = Local<Array>::Cast(group->Get(String::NewFromUtf8(isolate,"A")));
+  Local<Array> B = Local<Array>::Cast(group->Get(String::NewFromUtf8(isolate,"B")));
   
   polygon_set a, b, c;
   std::vector<polygon> polys;
@@ -178,11 +179,11 @@ NAN_METHOD(calculateNFP) {
   a+=poly;
   
   // subtract holes from a here...
-  Handle<Array> holes = Handle<Array>::Cast(A->Get(String::NewFromUtf8(isolate,"children")));
+  Local<Array> holes = Local<Array>::Cast(A->Get(String::NewFromUtf8(isolate,"children")));
   len = holes->Length();
   
   for(unsigned int i=0; i<len; i++){
-    Handle<Array> hole = Handle<Array>::Cast(holes->Get(i));
+    Local<Array> hole = Local<Array>::Cast(holes->Get(i));
     pts.clear();
     unsigned int hlen = hole->Length();
     for(unsigned int j=0; j<hlen; j++){
