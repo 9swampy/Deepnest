@@ -126,10 +126,10 @@ NAN_METHOD(calculateNFP) {
   double Aminy = 0;
   for (unsigned int i = 0; i < len; i++) {
   	Local<Object> obj = Local<Object>::Cast(A->Get(i));
-  	Amaxx = (std::max)(Amaxx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-  	Aminx = (std::min)(Aminx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-  	Amaxy = (std::max)(Amaxy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
-  	Aminy = (std::min)(Aminy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
+  	Amaxx = (std::max)(Amaxx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+  	Aminx = (std::min)(Aminx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+  	Amaxy = (std::max)(Amaxy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
+  	Aminy = (std::min)(Aminy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
   }
   
   len = B->Length();
@@ -139,10 +139,10 @@ NAN_METHOD(calculateNFP) {
   double Bminy = 0;
   for (unsigned int i = 0; i < len; i++) {
   	Local<Object> obj = Local<Object>::Cast(B->Get(i));
-  	Bmaxx = (std::max)(Bmaxx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-  	Bminx = (std::min)(Bminx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-  	Bmaxy = (std::max)(Bmaxy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
-  	Bminy = (std::min)(Bminy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
+  	Bmaxx = (std::max)(Bmaxx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+  	Bminx = (std::min)(Bminx, (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+  	Bmaxy = (std::max)(Bmaxy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
+  	Bminy = (std::min)(Bminy, (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
   }
   
   double Cmaxx = Amaxx + Bmaxx;
@@ -168,8 +168,8 @@ NAN_METHOD(calculateNFP) {
   
   for (unsigned int i = 0; i < len; i++) {
     Local<Object> obj = Local<Object>::Cast(A->Get(i));
-    int x = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-    int y = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
+    int x = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+    int y = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
         
     pts.push_back(point(x, y));
   }
@@ -188,8 +188,8 @@ NAN_METHOD(calculateNFP) {
     unsigned int hlen = hole->Length();
     for(unsigned int j=0; j<hlen; j++){
     	Local<Object> obj = Local<Object>::Cast(hole->Get(j));
-    	int x = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-    	int y = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
+    	int x = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+    	int y = (int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
     	pts.push_back(point(x, y));
     }
     boost::polygon::set_points(poly, pts.begin(), pts.end());
@@ -206,13 +206,13 @@ NAN_METHOD(calculateNFP) {
   
   for (unsigned int i = 0; i < len; i++) {
     Local<Object> obj = Local<Object>::Cast(B->Get(i));
-    int x = -(int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue());
-    int y = -(int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue());
+    int x = -(int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust());
+    int y = -(int)(inputscale * (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust());
     pts.push_back(point(x, y));
     
     if(i==0){
-    	xshift = (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue();
-    	yshift = (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue();
+    	xshift = (double)obj->Get(String::NewFromUtf8(isolate,"x"))->NumberValue(context).FromJust();
+    	yshift = (double)obj->Get(String::NewFromUtf8(isolate,"y"))->NumberValue(context).FromJust();
     }
   }
   
