@@ -24,7 +24,7 @@
     "url": "http://deepnest.io"
   },
   "devDependencies": {
-    "electron": "1.8.8",
+    "electron": "3.1.13",
     "electron-builder": "20.44.4",
     "electron-rebuild": "1.11.0"
   },
