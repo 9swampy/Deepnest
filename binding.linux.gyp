@@ -3,9 +3,8 @@
         {
             "target_name": "addon",
             "sources": [ "addon.cc", "minkowski.cc" ],
-            'cflags!': [ '-fno-exceptions', "-m32" ],
-            "ldflags": [ "-m elf_i386" ],
-      'cflags_cc!': [ '-fno-exceptions', '-fPIC -m32' ],
+            'cflags!': [ '-fno-exceptions' ],
+      'cflags_cc!': [ '-fno-exceptions' ],
       'conditions': [
         ['OS=="mac"', {
           'xcode_settings': {
@@ -15,7 +14,7 @@
       ],
             "include_dirs" : [
  	 		"<!(node -e \"require('nan')\")",
-            "C:/boost"
+            "/boost_1_76_0/"
 		]
         }
     ],
