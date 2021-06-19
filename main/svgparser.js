@@ -240,6 +240,7 @@
 	
 	SvgParser.prototype.mergeLines = function(root, tolerance){	
 	
+		console.log("mergeLines start");
 		/*for(var i=0; i<root.children.length; i++){
 			var p = root.children[i];
 			if(!this.isClosed(p)){
@@ -328,6 +329,8 @@
 				c = this.getCoincident(p, openpaths, tolerance);
 			}
 		}
+
+		console.log("mergeLines end");
 	}
 	
 	// merge all line objects that overlap eachother

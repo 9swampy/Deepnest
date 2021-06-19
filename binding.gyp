@@ -7,9 +7,9 @@
             "ldflags": [ "-m elf_i386" ],
             'cflags_cc!': [ '-fno-exceptions', '-fPIC -m32' ],
             "include_dirs" : [
- 	 		                          "<!(node -e \"require('nan')\")",
+ 	 		                    "<!(node -e \"require('nan')\")",
                                 "D:/boost_1_76_0"
-		                        ]
+		                     ]
         }
     ],
 }

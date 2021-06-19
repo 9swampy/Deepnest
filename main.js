@@ -75,8 +75,26 @@ if (!gotTheLock) {
 
   // Create myWindow, load the rest of the app, etc...
   app.whenReady().then(() => {
-    myWindow = createWindow()
-  })  
+    createMainWindow()
+      mainWindow.once('ready-to-show', () => {
+      mainWindow.show();
+      createBackgroundWindows();
+    })
+    mainWindow.on('closed', () => {
+      app.quit();
+    });
+  })
+
+  // app.on('ready', () => {
+  //   createMainWindow();
+  //   mainWindow.once('ready-to-show', () => {
+  //     mainWindow.show();
+  //     createBackgroundWindows();
+  //   })
+  //   mainWindow.on('closed', () => {
+  //     app.quit();
+  //   });
+  // })
 }
 function createMainWindow() {
 	
@@ -151,16 +169,16 @@ function createBackgroundWindows() {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-	createMainWindow();
-	mainWindow.once('ready-to-show', () => {
-	  mainWindow.show();
-	  createBackgroundWindows();
-	})
-	mainWindow.on('closed', () => {
-	  app.quit();
-	});
-})
+// app.on('ready', () => {
+// 	createMainWindow();
+// 	mainWindow.once('ready-to-show', () => {
+// 	  mainWindow.show();
+// 	  createBackgroundWindows();
+// 	})
+// 	mainWindow.on('closed', () => {
+// 	  app.quit();
+// 	});
+// })
 
 // Quit when all windows are closed.
 app.on('window-all-closed', function () {
